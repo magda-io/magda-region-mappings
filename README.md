@@ -130,6 +130,12 @@ Here:
   - `lv4Id`: (optional) Set the `lv4Id` all regions in this file to the supplied value.
   - `lv5Id`: (optional) Set the `lv5Id` all regions in this file to the supplied value.
 
+### Production Use
+
+The default config will pull region mapping files from the github repo release download area.
+
+For production deployment, you might want to host those region mapping files yourself in a more reliable way (e.g. put into a storage bucket).
+
 
 ### License
 
