@@ -1,1 +1,2 @@
 region-mappings/*.geojson filter=lfs diff=lfs merge=lfs -text
+default-region-mappings/*.geojson filter=lfs diff=lfs merge=lfs -text
