@@ -132,7 +132,7 @@ Here:
 
 ### Production Use
 
-The default config will pull region mapping files from the github repo release download area.
+The default config will pull region mapping files from [the github repo release download area](https://github.com/magda-io/magda-region-mappings/releases).
 
 For production deployment, you might want to host those region mapping files yourself in a more reliable way (e.g. put into a storage bucket).
 
