@@ -8,6 +8,7 @@ The region mapping files must be in `geojson` format with each "geometry" contai
 - `id`: the id of the region. Must be unique across one region mapping file.
 - `name`: the name of the region.
 - `shortName`: (optional) possible short name of the region.
+- `requireSimplify`: (optional, default to `true`) region files geometries often contains too much details. Therefore, by default, the indexer will attempt to simply the geometries before index the region. If the region file is a simplified version, you will want to set this field to `false` in your region file to skip this processing step.
 
 > Please note: we don't expect your region mapping files having the exact same field names above. Instead, you are required to specify the field name to access those field for your file. e.g. By set `idField` config field to "id", the indexer will know to read the `id` value of the region from your field from "id" field.
 
