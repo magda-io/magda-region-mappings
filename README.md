@@ -17,88 +17,88 @@ Users can config Magda's [indexer](https://github.com/magda-io/magda/tree/main/d
 indexer:
   appConfig:
     regionSources:
-        # Australia (Mainland) and all offshore territories as a whole
-        COUNTRY:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/country.geojson"
-            idField: "id"
-            nameField: "name"
-            order: 9
-        # Regions for each of Australia offshore territories
-        OFFSHORE_TERRITORIES:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/off-shore-territories.geojson"
-            idField: "id"
-            nameField: "name"
-            lv1Id: "2"
-            order: 11
-        # ABS Statistical Area Level 4
-        SA4:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA4.geojson"
-            idField: "SA4_CODE11"
-            nameField: "SA4_NAME11"
-            lv1Id: "1"
-            lv2IdField: "STE_CODE11"
-            order: 30
-        # ABS Statistical Area Level 3
-        SA3:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA3.geojson"
-            idField: "SA3_CODE11"
-            nameField: "SA3_NAME11"
-            lv1Id: "1"
-            lv2IdField: "STE_CODE11"
-            lv3IdField: "SA4_CODE11"
-            order: 40
-        # ABS Statistical Area Level 2
-        SA2:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA2.geojson"
-            idField: "SA2_MAIN11"
-            nameField: "SA2_NAME11"
-            lv1Id: "1"
-            lv2IdField: "STE_CODE11"
-            lv3IdField: "SA4_CODE11"
-            lv4IdField: "SA3_CODE11"
-            order: 50
-        # ABS Statistical Area Level 1
-        SA1:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA1.geojson"
-            idField: "SA1_MAIN11"
-            nameField: "SA1_MAIN11",
-            lv1Id: "1"
-            lv2IdField: "STE_CODE11"
-            lv3IdField: "SA4_CODE11"
-            lv4IdField: "SA3_CODE11"
-            lv5IdField: "SA2_MAIN11"
-            includeIdInName: false,
-            order: 60
-        # Australia Local Government Areas
-        LGA:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/LGA.geojson"
-            idField: "LGA_CODE15"
-            nameField: "LGA_NAME15"
-            lv1Id: "1"
-            steIdField: "STE_CODE11"
-            order: 20
-        # Australia Postal Areas
-        POA:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/POA.geojson"
-            idField: "POA_CODE"
-            nameField: "POA_NAME"
-            lv1Id: "1"
-            order: 70
-        # Australia Commonwealth electoral boundaries
-        COM_ELB_ID_2016:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/COM_ELB_ID_2016.geojson"
-            idField: "DIV_ID"
-            nameField: "SORTNAME"
-            lv1Id: "1"
-            order: 80
-        # Australia State and Territory
-        STE:
-            url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/STE.simplified.geojson"
-            idField: "STE_CODE11"
-            nameField: "STE_NAME11"
-            shortNameField: "STE_ABBREV"
-            lv1Id: "1"
-            order: 10
+      # Australia (Mainland) and all offshore territories as a whole
+      COUNTRY:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/country.geojson"
+        idField: "id"
+        nameField: "name"
+        order: 9
+      # Regions for each of Australia offshore territories
+      OFFSHORE_TERRITORIES:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/off-shore-territories.geojson"
+        idField: "id"
+        nameField: "name"
+        lv1Id: "2"
+        order: 11
+      # ABS Statistical Area Level 4
+      SA4:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA4.geojson"
+        idField: "SA4_CODE11"
+        nameField: "SA4_NAME11"
+        lv1Id: "1"
+        lv2IdField: "STE_CODE11"
+        order: 30
+      # ABS Statistical Area Level 3
+      SA3:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA3.geojson"
+        idField: "SA3_CODE11"
+        nameField: "SA3_NAME11"
+        lv1Id: "1"
+        lv2IdField: "STE_CODE11"
+        lv3IdField: "SA4_CODE11"
+        order: 40
+      # ABS Statistical Area Level 2
+      SA2:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA2.geojson"
+        idField: "SA2_MAIN11"
+        nameField: "SA2_NAME11"
+        lv1Id: "1"
+        lv2IdField: "STE_CODE11"
+        lv3IdField: "SA4_CODE11"
+        lv4IdField: "SA3_CODE11"
+        order: 50
+      # ABS Statistical Area Level 1
+      SA1:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/SA1.geojson"
+        idField: "SA1_MAIN11"
+        nameField: "SA1_MAIN11"
+        lv1Id: "1"
+        lv2IdField: "STE_CODE11"
+        lv3IdField: "SA4_CODE11"
+        lv4IdField: "SA3_CODE11"
+        lv5IdField: "SA2_MAIN11"
+        includeIdInName: false
+        order: 60
+      # Australia Local Government Areas
+      LGA:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/LGA.geojson"
+        idField: "LGA_CODE15"
+        nameField: "LGA_NAME15"
+        lv1Id: "1"
+        steIdField: "STE_CODE11"
+        order: 20
+      # Australia Postal Areas
+      POA:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/POA.geojson"
+        idField: "POA_CODE"
+        nameField: "POA_NAME"
+        lv1Id: "1"
+        order: 70
+      # Australia Commonwealth electoral boundaries
+      COM_ELB_ID_2016:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/COM_ELB_ID_2016.geojson"
+        idField: "DIV_ID"
+        nameField: "SORTNAME"
+        lv1Id: "1"
+        order: 80
+      # Australia State and Territory
+      STE:
+        url: "https://github.com/magda-io/magda-region-mappings/releases/download/v1.0.0/STE.simplified.geojson"
+        idField: "STE_CODE11"
+        nameField: "STE_NAME11"
+        shortNameField: "STE_ABBREV"
+        lv1Id: "1"
+        order: 10
 ```
 
 Here:
