@@ -67,7 +67,6 @@ indexer:
         lv3IdField: "SA4_CODE11"
         lv4IdField: "SA3_CODE11"
         lv5IdField: "SA2_MAIN11"
-        includeIdInName: false
         order: 60
       # Australia Local Government Areas
       LGA:
