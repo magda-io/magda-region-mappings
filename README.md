@@ -1,18 +1,18 @@
 # magda-regions
 
-This repo contains the default region mapping files used by [Magda](https://github.com/magda-io/magda) for indexing &amp; region selector map.
+This repo contains the default region files used by [Magda](https://github.com/magda-io/magda) for indexing &amp; region selector map.
 
-Magda allow users to supply a list of region mapping files that contains a list of regions available as region search filter options. The region mapping files will be fetched via HTTP protocol by Magda's [indexer](https://github.com/magda-io/magda/tree/main/deploy/helm/internal-charts/indexer) module when it's required to create region index in search engine (e.g. for the first deployment).
+Magda allow users to supply a list of region files that contains a list of regions available as region search filter options. The region files will be fetched via HTTP protocol by Magda's [indexer](https://github.com/magda-io/magda/tree/main/deploy/helm/internal-charts/indexer) module when it's required to create region index in search engine (e.g. for the first deployment).
 
-The region mapping files must be in `geojson` format with each "geometry" contains the following information in "properties":
-- `id`: the id of the region. Must be unique across one region mapping file.
+The region files must be in `geojson` format with each "geometry" contains the following information in "properties":
+- `id`: the id of the region. Must be unique across one region file.
 - `name`: the name of the region.
 - `shortName`: (optional) possible short name of the region.
 - `requireSimplify`: (optional, default to `true`) region files geometries often contains too much details. Therefore, by default, the indexer will attempt to simply the geometries before index the region. If the region file is a simplified version, you will want to set this field to `false` in your region file to skip this processing step.
 
-> Please note: we don't expect your region mapping files having the exact same field names above. Instead, you are required to specify the field name to access those field for your file. e.g. By set `idField` config field to "id", the indexer will know to read the `id` value of the region from your field from "id" field.
+> Please note: we don't expect your region files having the exact same field names above. Instead, you are required to specify the field name to access those field for your file. e.g. By set `idField` config field to "id", the indexer will know to read the `id` value of the region from your field from "id" field.
 
-Users can config Magda's [indexer](https://github.com/magda-io/magda/tree/main/deploy/helm/internal-charts/indexer) module helm chart to load alternative region mapping files. Here is what default region mapping config looks like:
+Users can config Magda's [indexer](https://github.com/magda-io/magda/tree/main/deploy/helm/internal-charts/indexer) module helm chart to load alternative region files. Here is what default region config looks like:
 
 ```yaml
 indexer:
@@ -102,9 +102,9 @@ indexer:
 ```
 
 Here:
-- under `regionSources` section, you can specify one or more region mapping files. The keys (e.g. `COUNTRY`, `OFFSHORE_TERRITORIES` and  `SA4` etc) are used as the `regionType` of the regions imported into search index by indexer module.
-- For the each of the mapping file entry, the following config fields are available:
-  - `url`: the url of region mapping file. Only support http/https URLs.
+- under `regionSources` section, you can specify one or more region files. The keys (e.g. `COUNTRY`, `OFFSHORE_TERRITORIES` and  `SA4` etc) are used as the `regionType` of the regions imported into search index by indexer module.
+- For the each of the file entry, the following config fields are available:
+  - `url`: the url of region file. Only support http/https URLs.
   - `idField`: Which field of the `properties` object of the region in geojson file should be used as the `id` of the imported region.
   - `nameField`: Which field of the `properties` object of the region in geojson file should be used as the `name` of the imported region.
   - `shortNameField`: (optional) which field of the `properties` object should be used as region `shortName`.
@@ -132,10 +132,27 @@ Here:
 
 ### Production Use
 
-The default config will pull region mapping files from [the github repo release download area](https://github.com/magda-io/magda-regions/releases).
+The default config will pull region files from [the github repo release download area](https://github.com/magda-io/magda-regions/releases).
 
-For production deployment, you might want to host those region mapping files yourself in a more reliable way (e.g. put into a storage bucket).
+For production deployment, you might want to host those region files yourself in a more reliable way (e.g. put into a storage bucket).
 
+### How to generate default region files
+
+- Install GDAL 2.4.0 or later
+- Install [Tippecanoe](https://github.com/mapbox/tippecanoe) version 1.32.10 or later
+- Git clone [boundary-tiles](https://github.com/magda-io/boundary-tiles/tree/magda) repo `magda` branch.
+- Run `yarn install`
+- Find generation config file [config-magda.json5)](https://github.com/magda-io/boundary-tiles/blob/magda/config-magda.json5)
+  - Find all required download files from the config files
+  - Put download files into either `srcdata/geopackages` or `srcdata/[region type]` folder. 
+- Run `yarn gulp all`
+- You can find all region files from generated `geojson` folder.
+  - files with name pattern `[region type].fid.nd.json` (geojson with feature id) are the one we need.
+
+> Please note: the process also generates MVT (Mapbox Vector Tiles) that can be found from `mbtiles` folder.
+
+> The region mapping file generated can be located from `regionMapping/regionMapping.json`. 
+> Before use the region mapping file, you might want to change the server domain name in the region mapping file if you plan to host the tiles on your own infrastructure.
 
 ### License
 
