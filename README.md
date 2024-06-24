@@ -140,14 +140,14 @@ For production deployment, you might want to host those region files yourself in
 
 - Install GDAL 2.4.0 or later
 - Install [Tippecanoe](https://github.com/mapbox/tippecanoe) version 1.32.10 or later
-- Git clone [boundary-tiles](https://github.com/magda-io/boundary-tiles/tree/magda) repo `magda` branch.
+- Git clone [boundary-tiles](https://github.com/magda-io/boundary-tiles/tree/magda) repo and checkout `magda` branch.
 - Run `yarn install`
 - Find generation config file [config-magda.json5)](https://github.com/magda-io/boundary-tiles/blob/magda/config-magda.json5)
   - Find all required download files from the config files
   - Put download files into either `srcdata/geopackages` or `srcdata/[region type]` folder. 
 - Run `yarn gulp all`
 - You can find all region files from generated `geojson` folder.
-  - files with name pattern `[region type].fid.nd.json` (geojson with feature id) are the one we need.
+  - files with name pattern `[region type].geojson` are the ones we need.
 
 > Please note: the process also generates MVT (Mapbox Vector Tiles) that can be found from `mbtiles` folder.
 
