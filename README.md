@@ -2,6 +2,8 @@
 
 This repo contains the default region files used by [Magda](https://github.com/magda-io/magda) for indexing &amp; region selector map.
 
+### Region Files
+
 Magda allow users to supply a list of region files that contains a list of regions available as region search filter options. The region files will be fetched via HTTP protocol by Magda's [indexer](https://github.com/magda-io/magda/tree/main/deploy/helm/internal-charts/indexer) module when it's required to create region index in search engine (e.g. for the first deployment).
 
 The region files must be in `geojson` format with each "geometry" contains the following information in "properties":
@@ -11,6 +13,8 @@ The region files must be in `geojson` format with each "geometry" contains the f
 - `requireSimplify`: (optional, default to `true`) region files geometries often contains too much details. Therefore, by default, the indexer will attempt to simply the geometries before index the region. If the region file is a simplified version, you will want to set this field to `false` in your region file to skip this processing step.
 
 > Please note: we don't expect your region files having the exact same field names above. Instead, you are required to specify the field name to access those field for your file. e.g. By set `idField` config field to "id", the indexer will know to read the `id` value of the region from your field from "id" field.
+
+### Config Magda Indexer with Region Files
 
 Users can config Magda's [indexer](https://github.com/magda-io/magda/tree/main/deploy/helm/internal-charts/indexer) module helm chart to load alternative region files. Here is what default region config looks like:
 
@@ -129,6 +133,206 @@ Here:
   - `lv3Id`: (optional) Set the `lv3Id` all regions in this file to the supplied value.
   - `lv4Id`: (optional) Set the `lv4Id` all regions in this file to the supplied value.
   - `lv5Id`: (optional) Set the `lv5Id` all regions in this file to the supplied value.
+
+### Config Magda Search API with Region Mapping
+
+Region mapping file is served by Magda search api to frontend via [Get Region Types
+](https://dev.magda.io/api/v0/apidocs/index.html#api-Search-GetV0SearchRegionTypes) API.
+
+The region mapping file is created during the MVT (Mapbox Vector Tiles) generation and contains the meta-information such as:
+- MVT server url
+- min/max zoom
+- bbox etc.
+
+Those information will be used by frontend for render region boundaries in a map (e.g. region filter map).
+
+> Please see `How to generate default region files` section for information of how to generate region files, MVT & region mapping files.
+
+The JSON version of mapping file can be located [here](./regionMapping.json).
+
+To config Magda's search api to use alternative region mapping, here is an example:
+
+```yaml
+search-api:
+  appConfig:
+    regionMapping:
+      regionWmsMap:
+        STE:
+          layerName: STE_2021
+          server: https://tiles.magda.io/STE_2021/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-STE_2021.json
+          uniqueIdProp: FID
+          regionProp: STATE_CODE_2021
+          nameProp: STATE_NAME_2021
+          aliases:
+            - ste_code_2021
+            - ste_code
+            - ste
+          description: States and Territories 2021
+          bbox:
+            - 96.81
+            - -43.74
+            - 168
+            - -9.14
+        SA1:
+          layerName: SA1_2021
+          server: https://tiles.magda.io/SA1_2021/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-SA1_2021.json
+          uniqueIdProp: FID
+          regionProp: SA1_CODE_2021
+          nameProp: SA1_CODE_2021
+          aliases:
+            - sa1_code_2021
+            - sa1_maincode_2021
+            - sa1
+            - sa1_code
+          description: Statistical Area Level 1 2021 (ABS)
+          bbox:
+            - 96.81
+            - -43.75
+            - 159.11
+            - -9.14
+        SA2:
+          layerName: SA2_2021
+          server: https://tiles.magda.io/SA2_2021/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-SA2_2021.json
+          uniqueIdProp: FID
+          regionProp: SA2_CODE_2021
+          nameProp: SA2_NAME_2021
+          aliases:
+            - sa2_code_2021
+            - sa2_maincode_2021
+            - sa2
+            - sa2_code
+          description: Statistical Area Level 2 2021 by code (ABS)
+          bbox:
+            - 96.81
+            - -43.75
+            - 168
+            - -9.14
+        SA3:
+          layerName: SA3_2021
+          server: https://tiles.magda.io/SA3_2021/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-SA3_2021.json
+          uniqueIdProp: FID
+          regionProp: SA3_CODE_2021
+          nameProp: SA3_NAME_2021
+          aliases:
+            - sa3_code_2021
+            - sa3_maincode_2021
+            - sa3
+            - sa3_code
+          description: Statistical Area Level 3 2021 by code (ABS)
+          bbox:
+            - 96.81
+            - -43.75
+            - 168
+            - -9.14
+        SA4:
+          layerName: SA4_2021
+          server: https://tiles.magda.io/SA4_2021/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-SA4_2021.json
+          uniqueIdProp: FID
+          regionProp: SA4_CODE_2021
+          nameProp: SA4_NAME_2021
+          aliases:
+            - sa4_code_2021
+            - sa4_maincode_2021
+            - sa4
+            - sa4_code
+          description: Statistical Area Level 4 2021 by code (ABS)
+          bbox:
+            - 96.81
+            - -43.75
+            - 168
+            - -9.14
+        LGA:
+          layerName: LGA_2023
+          server: https://tiles.magda.io/LGA_2023/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-LGA_2023.json
+          uniqueIdProp: FID
+          regionProp: LGA_CODE_2023
+          nameProp: LGA_NAME_2023
+          aliases:
+            - lga_code_2023
+            - lga_code
+            - lga
+          description: Local Government Areas 2023
+          bbox:
+            - 96.81
+            - -43.74
+            - 168
+            - -9.14
+        ELB:
+          layerName: ELB_2021
+          server: https://tiles.magda.io/ELB_2021/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-ELB_NAME_2021.json
+          uniqueIdProp: FID
+          regionProp: Elect_div
+          nameProp: Elect_div
+          aliases:
+            - com_elb_name_2021
+            - com_elb_name
+          description: Commonwealth Electoral Divisions as at 2 August 2021 (AEC)
+          bbox:
+            - 96.81
+            - -43.73
+            - 168
+            - -9.1
+        POA:
+          layerName: POA_2021
+          server: https://tiles.magda.io/POA_2021/{z}/{x}/{y}.pbf
+          serverType: MVT
+          serverMaxNativeZoom: 12
+          serverMinZoom: 0
+          serverMaxZoom: 28
+          regionIdsFile: build/TerriaJS/data/regionids/region_map-POA_2021.json
+          uniqueIdProp: FID
+          regionProp: POA_CODE_2021
+          nameProp: POA_CODE_2021
+          aliases:
+            - poa_code_2021
+            - poa_code
+            - poa
+            - postcode_2021
+            - postcode
+          description: Postal Areas 2021 (ABS)
+          bbox:
+            - 96.81
+            - -43.74
+            - 168
+            - -9.14
+```
+
+> You can use [json-to-yaml](https://codebeautify.org/json-to-yaml) tool to convert json to yaml
 
 ### Production Use
 
