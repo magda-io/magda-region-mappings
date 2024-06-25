@@ -85,7 +85,7 @@ indexer:
         lv1Id: "1"
         order: 70
       # Australia Commonwealth electoral boundaries
-      ELB_2021:
+      ELB:
         url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/ELB_2021.geojson"
         idField: "FID"
         nameField: "Elect_div"
