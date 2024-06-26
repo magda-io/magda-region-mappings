@@ -6,7 +6,7 @@ This repo contains the default region files used by [Magda](https://github.com/m
 
 Magda allow users to supply a list of region files that contains a list of regions available as region search filter options. The region files will be fetched via HTTP protocol by Magda's [indexer](https://github.com/magda-io/magda/tree/main/deploy/helm/internal-charts/indexer) module when it's required to create region index in search engine (e.g. for the first deployment).
 
-The region files must be in `geojson` format with each "geometry" contains the following information in "properties":
+The region files must be in [Newline-delimited GeoJSON](https://stevage.github.io/ndgeojson/) format with each "feature" contains the following information in "properties":
 - `id`: the id of the region. Must be unique across one region file.
 - `name`: the name of the region.
 - `shortName`: (optional) possible short name of the region.
@@ -24,20 +24,20 @@ indexer:
     regionSources:
       # Australia (Mainland) and all offshore territories as a whole
       COUNTRY:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/country.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/country.ndjson"
         idField: "id"
         nameField: "name"
         order: 9
       # Regions for each of Australia offshore territories
       OFFSHORE_TERRITORIES:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/off-shore-territories.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/off-shore-territories.ndjson"
         idField: "id"
         nameField: "name"
         lv1Id: "2"
         order: 11
       # ABS Statistical Area Level 4
       SA4:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA4_2021.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA4_2021.ndjson"
         idField: "SA4_CODE_2021"
         nameField: "SA4_NAME_2021"
         lv1Id: "1"
@@ -45,7 +45,7 @@ indexer:
         order: 30
       # ABS Statistical Area Level 3
       SA3:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA3_2021.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA3_2021.ndjson"
         idField: "SA3_CODE_2021"
         nameField: "SA3_NAME_2021"
         lv1Id: "1"
@@ -54,7 +54,7 @@ indexer:
         order: 40
       # ABS Statistical Area Level 2
       SA2:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA2_2021.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA2_2021.ndjson"
         idField: "SA2_CODE_2021"
         nameField: "SA2_NAME_2021"
         lv1Id: "1"
@@ -64,7 +64,7 @@ indexer:
         order: 50
       # ABS Statistical Area Level 1
       SA1:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA1_2021.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/SA1_2021.ndjson"
         idField: "SA1_CODE_2021"
         nameField: "SA1_CODE_2021"
         lv1Id: "1"
@@ -75,7 +75,7 @@ indexer:
         order: 60
       # Australia Local Government Areas
       LGA:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/LGA_2023.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/LGA_2023.ndjson"
         idField: "LGA_CODE_2023"
         nameField: "LGA_NAME_2023"
         lv1Id: "1"
@@ -83,21 +83,21 @@ indexer:
         order: 20
       # Australia Postal Areas
       POA:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/POA_2021.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/POA_2021.ndjson"
         idField: "POA_CODE_2021"
         nameField: "POA_NAME_2021"
         lv1Id: "1"
         order: 70
       # Australia Commonwealth electoral boundaries
       ELB:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/ELB_2021.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/ELB_2021.ndjson"
         idField: "FID"
         nameField: "Elect_div"
         lv1Id: "1"
         order: 80
       # Australia State and Territory
       STE:
-        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/STE.simplified.geojson"
+        url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/STE.simplified.ndjson"
         idField: "STE_CODE11"
         nameField: "STE_NAME11"
         shortNameField: "STE_ABBREV"
@@ -109,8 +109,8 @@ Here:
 - under `regionSources` section, you can specify one or more region files. The keys (e.g. `COUNTRY`, `OFFSHORE_TERRITORIES` and  `SA4` etc) are used as the `regionType` of the regions imported into search index by indexer module.
 - For the each of the file entry, the following config fields are available:
   - `url`: the url of region file. Only support http/https URLs.
-  - `idField`: Which field of the `properties` object of the region in geojson file should be used as the `id` of the imported region.
-  - `nameField`: Which field of the `properties` object of the region in geojson file should be used as the `name` of the imported region.
+  - `idField`: Which field of the `properties` object of the region in the region file should be used as the `id` of the imported region.
+  - `nameField`: Which field of the `properties` object of the region in the region file should be used as the `name` of the imported region.
   - `shortNameField`: (optional) which field of the `properties` object should be used as region `shortName`.
   - `includeIdInName`: (optional, default to `false`) When `true`, region name will be stored as string in format of `name-id`.
   - `disabled`: (optional, default to `false`) When `true`, the config entry will be ignore.
@@ -350,8 +350,8 @@ For production deployment, you might want to host those region files yourself in
   - Find all required download files from the config files
   - Put download files into either `srcdata/geopackages` or `srcdata/[region type]` folder. 
 - Run `yarn gulp all`
-- You can find all region files from generated `geojson` folder.
-  - files with name pattern `[region type].geojson` are the ones we need.
+- You can find all region files (in different formats) from generated `geojson` folder.
+  - files with name pattern `[region type]-fid.nd.json` are the ones we need.
 
 > Please note: the process also generates MVT (Mapbox Vector Tiles) that can be found from `mbtiles` folder.
 
