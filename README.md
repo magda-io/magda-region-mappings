@@ -91,7 +91,7 @@ indexer:
       # Australia Commonwealth electoral boundaries
       ELB:
         url: "https://github.com/magda-io/magda-regions/releases/download/v2.0.0/ELB_2021.ndjson"
-        idField: "FID"
+        idField: "Elect_div"
         nameField: "Elect_div"
         lv1Id: "1"
         order: 80
