@@ -114,6 +114,7 @@ Here:
   - `shortNameField`: (optional) which field of the `properties` object should be used as region `shortName`.
   - `includeIdInName`: (optional, default to `false`) When `true`, region name will be stored as string in format of `name-id`.
   - `disabled`: (optional, default to `false`) When `true`, the config entry will be ignore.
+    - As the config value will be merged with default region source config, if you want to disable default region files, you should explicitly disable them using `disabled` field in your config.
   - `order`: an integer number defines the sorting order of [region search api](https://dev.ai4m-p11.magda.io/api/v0/apidocs/index.html#api-Search-GetV0SearchRegions) search result.
   - `lv1IdField`: (optional) Which field of the `properties` object should be used as region's `lv1Id`.
     - The region records also used in Magda dataset authoring tool dataset spatial coverage select UI. `lv1Id` means level 1 region ID, which is used to represent "State" level regions used by the dataset spatial coverage select tool.
